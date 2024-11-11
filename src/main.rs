@@ -1,12 +1,11 @@
-use std::{io::{self, Read, Write}, time::Instant};
+use std::{io::{self, Write}, time::Instant};
 
 use access_token::get_access_token;
 use recommendation::get_recommendations;
 
 mod access_token;
 mod recommendation;
-
-//TODO: should probably use 'valance' and 'energy' to measure mood, rather than 
+mod mood;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>>{
@@ -17,9 +16,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>>{
 
     let mood = &get_user_mood();
 
+    let genre = &get_genre();
+
     let start_time = Instant::now();
 
-    let tracks = get_recommendations(&token, mood).await?;
+    let tracks = get_recommendations(&token, mood, genre).await?;
 
     let elapsed = start_time.elapsed().as_secs_f64();
 
@@ -44,4 +45,15 @@ fn get_user_mood() -> String{
     io::stdin().read_line(&mut mood).unwrap();
 
     mood.trim().to_lowercase()
+}
+
+fn get_genre() -> String{
+    print!("Enter your genre:");
+    io::stdout().flush().unwrap();
+
+    let mut genre = String::new();
+
+    io::stdin().read_line(&mut genre).unwrap();
+
+    genre.trim().to_lowercase()
 }

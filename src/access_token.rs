@@ -1,11 +1,9 @@
 use reqwest::Client;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 #[derive(Deserialize)]
 struct TokenResponse{
-    access_token : String,
-    token_type : String,
-    expires_in : u64
+    access_token : String
 }
 
 pub async fn get_access_token(client_id: &str, client_secret : &str) -> Result<String, Box<dyn std::error::Error>> 
