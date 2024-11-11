@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Recommendations</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Music Recommendations</h1>
+    <form id="recommendation-form">
+        <label for="mood">Mood:</label>
+        <input type="text" id="mood" name="mood" required>
+        <label for="genre">Genre:</label>
+        <input type="text" id="genre" name="genre" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+    <h2>Recommended Tracks:</h2>
+    <ul id="tracks"></ul>
+    <script src="script.js"></script>
+</body>
+</html>

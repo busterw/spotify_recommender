@@ -1,15 +1,15 @@
 use reqwest::Client;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 use crate::mood;
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct Track{
     pub name:String,
     pub artists: Vec<Artist>
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Serialize)]
 pub struct Artist{
     pub name: String
 }

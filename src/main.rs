@@ -1,59 +1,47 @@
 use std::{io::{self, Write}, time::Instant};
 
 use access_token::get_access_token;
+use actix_files::Files;
+use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use recommendation::get_recommendations;
+use serde::Deserialize;
 
 mod access_token;
 mod recommendation;
 mod mood;
 
+#[derive(Deserialize)]
+struct QueryParams{
+    mood: String,
+    genre: String
+}
+
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>>{
+async fn main() -> std::io::Result<()>{
+    HttpServer::new( || {
+        App::new()
+            .route("/recommendations", web::get().to(get_recommendations_handler))
+            .service(Files::new("/","./static").index_file("index.html"))
+    })
+    .bind("127.0.0.1:8080")?
+    .run()
+    .await
+}
+
+
+async fn get_recommendations_handler(params: web::Query<QueryParams>) -> impl Responder{
     let client_id = "cd8bff96f8544158868aa53aa4a7bd72";
     let client_secret = "d879110eade840b58a0da18a1dadb453";
 
-    let token = get_access_token(client_id, client_secret).await?;
+    println!("I'm hit!");
 
-    let mood = &get_user_mood();
+    let token = get_access_token(client_id, client_secret).await.unwrap();
 
-    let genre = &get_genre();
+    let mood = &params.mood;
+    let genre = &params.genre;
 
-    let start_time = Instant::now();
+    let tracks = get_recommendations(&token, mood, genre).await.unwrap_or_default();
 
-    let tracks = get_recommendations(&token, mood, genre).await?;
-
-    let elapsed = start_time.elapsed().as_secs_f64();
-
-    println!();
-
-    for track in tracks {
-        println!("{} by {}", track.name, track.artists.first().unwrap().name);
-    }
-
-    println!("\n Time Taken to get tracks: {:?}s", elapsed);
-
-    Ok(())
-
+    HttpResponse::Ok().json(tracks)
 }
 
-fn get_user_mood() -> String{
-    print!("Enter your mood:");
-    io::stdout().flush().unwrap();
-
-    let mut mood = String::new();
-
-    io::stdin().read_line(&mut mood).unwrap();
-
-    mood.trim().to_lowercase()
-}
-
-fn get_genre() -> String{
-    print!("Enter your genre:");
-    io::stdout().flush().unwrap();
-
-    let mut genre = String::new();
-
-    io::stdin().read_line(&mut genre).unwrap();
-
-    genre.trim().to_lowercase()
-}
