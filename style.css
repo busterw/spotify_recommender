@@ -1,0 +1,101 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+.tracks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Reduced min width */
+    gap: 10px; /* Reduced gap between boxes */
+    margin-top: 20px;
+}
+
+.track {
+    background: #fff;
+    padding: 8px; /* Reduced padding */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center; /* Center align contents */
+    font-size: 0.9em; /* Slightly smaller text */
+}
+
+.track h3 {
+    font-size: 0.9em; /* Reduced font size for title */
+    margin: 5px 0;
+}
+
+.track p {
+    font-size: 0.8em; /* Reduced font size for artist text */
+    color: #555;
+    margin: 0;
+}
+
+.album-art {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 8px; /* Reduced spacing below image */
+}
+
+h3 a {
+    text-decoration: none;
+    color: #3498db;
+}
+
+h3 a:hover {
+    text-decoration: underline;
+    color: #2c3e50;
+}
+
