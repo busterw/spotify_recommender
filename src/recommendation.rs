@@ -2,11 +2,17 @@ use reqwest::Client;
 use serde::{Deserialize, Serialize};
 
 use crate::mood;
+#[derive(Deserialize)]
+struct Recommendations{
+    tracks: Vec<Track>
+}
 
 #[derive(Deserialize, Serialize)]
 pub struct Track{
     pub name:String,
-    pub artists: Vec<Artist>
+    pub artists: Vec<Artist>,
+    pub album: Album,
+    pub external_urls: ExternalUrls
 }
 
 #[derive(Deserialize, Serialize)]
@@ -14,11 +20,22 @@ pub struct Artist{
     pub name: String
 }
 
-#[derive(Deserialize)]
-struct Recommendations{
-    tracks: Vec<Track>
+#[derive(Deserialize, Serialize)]
+pub struct Album{
+    pub images: Vec<Image>, // A list of images (Spotify provides multiple sizes)
 }
 
+#[derive(Deserialize, Serialize)]
+pub struct Image {
+    pub url: String,
+    pub height: Option<u32>,
+    pub width: Option<u32>,
+}
+
+#[derive(Deserialize, Serialize)]
+pub struct ExternalUrls {
+    pub spotify: String, // Spotify's URL for the track
+}
 
 
 pub async fn get_recommendations(token: &str, mood: &str, genre: &str) -> Result<Vec<Track>, Box<dyn std::error::Error>>{

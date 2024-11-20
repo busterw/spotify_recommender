@@ -5,18 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Recommendations</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <h1>Music Recommendations</h1>
-    <form id="recommendation-form">
-        <label for="mood">Mood:</label>
-        <input type="text" id="mood" name="mood" required>
-        <label for="genre">Genre:</label>
-        <input type="text" id="genre" name="genre" required>
-        <button type="submit">Get Recommendations</button>
-    </form>
-    <h2>Recommended Tracks:</h2>
-    <ul id="tracks"></ul>
+    <div class="container">
+        <h1>🎵 Music Recommendations</h1>
+        <form id="recommendation-form">
+            <div class="form-group">
+                <label for="mood">Mood:</label>
+                <input type="text" id="mood" name="mood" required placeholder="e.g., happy">
+            </div>
+            <div class="form-group">
+                <label for="genre">Genre:</label>
+                <input type="text" id="genre" name="genre" required placeholder="e.g., pop">
+            </div>
+            <button type="submit">Get Recommendations</button>
+        </form>
+        <h2>Recommended Tracks:</h2>
+        <div id="tracks" class="tracks-grid"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
