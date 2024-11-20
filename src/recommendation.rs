@@ -54,7 +54,7 @@ pub async fn get_recommendations(token: &str, mood: &str, genre: &str) -> Result
     .get("https://api.spotify.com/v1/recommendations")
     .bearer_auth(token)
     .query(&[
-        ("limit", "10"),
+        ("limit", "12"),
         ("seed_genres", genre),
         ("target_valence", &mood_struct.valence.to_string())
     ])
